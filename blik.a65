@@ -2,78 +2,24 @@ ORG 0xE000
 LOOP:
     LDA #$01
     STA 0x0800
+    LDA #$FF
     JSR DELAY
     LDA #$00
     STA 0x0800
+    LDA #$FF
     JSR DELAY
     JMP LOOP
 DELAY:
-    LDX $FF
+    LDX #$FF
     DLOOP:
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        NOP
-        DEX
-        TXA
-        BNE DLOOP
+        JSR DELAY256
+        DEX ; X--
+        BNE DLOOP ; X != 0, loop
+        RTS
+    
+DELAY256:
+    LDY #$B9
+    D256LOOP:
+        DEY ; Y--
+        BNE D256LOOP ; X != 0, loop
         RTS

@@ -48,7 +48,6 @@ void clearkey() { curkey = 0; }
 
 void led(uint16_t val) {
   digitalWrite(LED_BUILTIN, val);
-  Serial.println(val, HEX);
 }
 }
 

@@ -18,7 +18,7 @@ DELAY:
         RTS
     
 DELAY256:
-    LDY #$B9
+    LDY #$90
     D256LOOP:
         DEY ; Y--
         BNE D256LOOP ; X != 0, loop

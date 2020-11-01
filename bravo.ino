@@ -20,11 +20,13 @@
 #define RESET_pin 5
 #define INSTRUCTIONS_PER_LOOP 100
 
-//#define USE_TIMING 1
+#define USE_TIMING 1
 #define SHOW_SPEED 1
 
 uint8_t curkey = 0;
+#ifdef SHOW_SPEED
 unsigned long starttime, endtime, counttime;
+#endif
 
 extern "C" {
 uint16_t getpc();
@@ -46,20 +48,19 @@ uint8_t getkey() { return (curkey); }
 
 void clearkey() { curkey = 0; }
 
-void led(uint16_t val) {
-  digitalWrite(LED_BUILTIN, val);
-}
+void led(uint16_t val) { digitalWrite(LED_BUILTIN, val); }
 }
 
 void setup() {
   Serial.begin(9600);
-
+#ifdef SHOW_SPEED
+  counttime = 0;
+#endif
   // set the externes pins for NMI, IRQ and RESET
   pinMode(NMI_pin, INPUT_PULLUP);
   pinMode(IRQ_pin, INPUT_PULLUP);
   pinMode(RESET_pin, INPUT_PULLUP);
   pinMode(LED_BUILTIN, OUTPUT);
-  counttime = 0;
   reset6502();
 }
 
@@ -108,7 +109,6 @@ void loop() {
   exec6502(INSTRUCTIONS_PER_LOOP);  // if timing is enabled, this value is
                                     // in 6502 clock ticks. otherwise,
                                     // simply instruction count.
-
   if (Serial.available()) {
     curkey = Serial.read() & 0x7F;
   }

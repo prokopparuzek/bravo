@@ -38,7 +38,8 @@ extern void led(uint16_t);
 //#define UNDOCUMENTED //when this is defined, undocumented opcodes are handled.
 // otherwise, they're simply treated as NOPs.
 
-//#define USE_TIMING //slower, but allows you to specify number of cycles to run
+#define USE_TIMING  // slower, but allows you to specify number of cycles to
+// run
 // for exec6502 rather than simply a number of instructions. also uses a little
 // more program memory when enabled.
 
@@ -816,7 +817,7 @@ void irq6502() {
 }
 
 #ifdef USE_TIMING
-prog_char ticktable[256] PROGMEM = {
+const char ticktable[256] PROGMEM = {
     /*        |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  A
        |  B  |  C  |  D  |  E  |  F  |     */
     /* 0 */ 7, 6, 2, 8, 3, 3, 5, 5, 3, 2, 2, 2, 4, 4, 6, 6, /* 0 */
